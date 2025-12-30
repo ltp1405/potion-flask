@@ -23,6 +23,11 @@ defmodule EventProcessor.Source do
   end
 
   @impl true
+  def handle_call(:get, _from, {current_id, [], unacked}) do
+    {:reply, nil, {current_id, [], unacked}}
+  end
+
+  @impl true
   def handle_call(:get, _from, {current_id, [head | tail], unacked}) do
     {:reply, %EventProcessor.Event{id: current_id, payload: head},
      {current_id + 1, tail, [current_id | unacked]}}

@@ -28,7 +28,13 @@ defmodule EventProcessor do
         {p, fn event -> String.duplicate(event, 2) end}
       )
 
-    EventProcessor.Processor.get(p2)
+    # EventProcessor.Processor.get(p2)
+    # EventProcessor.Processor.get(p2)
+
+    {:ok, sink} = GenServer.start_link(EventProcessor.Sink, p2)
+    EventProcessor.Sink.get(sink)
+    EventProcessor.Sink.get(sink)
+    EventProcessor.Sink.get(sink)
 
     # EventProcessor.Source.get(sv)
     # EventProcessor.Source.get(sv)
